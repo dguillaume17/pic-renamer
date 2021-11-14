@@ -1,7 +1,7 @@
 from services.recognition_service import RecognitionService
 
 class Picture:
-    def __init__(self, file_name, file_path):
+    def __init__(self, file_name: str, file_path: str):
         self.file_name = file_name
         self.file_path = file_path
         
