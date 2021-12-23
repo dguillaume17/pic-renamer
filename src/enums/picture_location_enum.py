@@ -10,9 +10,9 @@ class PictureLocation(Enum):
     def get_directory_path(self) -> str:
         match self:
             case PictureLocation.TEMPLATE:
-                return "assets/pictures/template/"
+                return "src/assets/pictures/template/"
             case PictureLocation.WORKLOAD:
-                return "assets/pictures/workload/"
+                return "src/assets/pictures/workload/"
             
     def get_pictures(self):
         directory_path = PictureLocation.get_directory_path(self)

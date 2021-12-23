@@ -1,7 +1,7 @@
 
 import unittest
 
-from main import main
+from src.main import main
 from services.recognition_service import RecognitionService
 
 class MainTest(unittest.TestCase):
