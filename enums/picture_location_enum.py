@@ -7,17 +7,17 @@ class PictureLocation(Enum):
     TEMPLATE = auto()
     WORKLOAD = auto()
     
-    def getDirectoryPath(self) -> str:
+    def get_directory_path(self) -> str:
         match self:
             case PictureLocation.TEMPLATE:
                 return "assets/pictures/template/"
             case PictureLocation.WORKLOAD:
                 return "assets/pictures/workload/"
             
-    def getPictures(self):
-        directory_path = PictureLocation.getDirectoryPath(self)
+    def get_pictures(self):
+        directory_path = PictureLocation.get_directory_path(self)
         file_names = listdir(
-            PictureLocation.getDirectoryPath(self)
+            PictureLocation.get_directory_path(self)
         )
         
         pictures = []
