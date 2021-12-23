@@ -1,25 +1,25 @@
-import face_recognition
-from enums.picture_location_enum import PictureLocation
-from models.picture_model import Picture
-from services.recognition_service import RecognitionService
+from constants.constants import Constants
+from factories.service_factory import ServiceFactory
+from services.directory_extractor_service import DirectoryExtractor
+from services.face_comparator_service import FaceComparator
 
-def main(recognition_service: RecognitionService):
-    template = Picture("cauet.jpg", PictureLocation.get_directory_path(PictureLocation.TEMPLATE))
-    face_encoding1 = Picture.setup_face_encoding(template, recognition_service)
-
-    pictures = PictureLocation.get_pictures(PictureLocation.WORKLOAD)
-    for picture in pictures:
-        face_encoding2 = Picture.setup_face_encoding(picture, recognition_service)
-        
-        results = face_recognition.compare_faces([face_encoding1], face_encoding2)
-        
-        print(results)
-        if results == True:
-            print("ok : " + picture.file_name)
-        else:
-            print("NOK : " + picture.file_name)
-
-
-main(
-    RecognitionService()
+serviceFactory = ServiceFactory(
+    DirectoryExtractor(),
+    FaceComparator()
 )
+
+directoryExtractor = serviceFactory.getDirectoryExtractor()
+baseImagePathes = directoryExtractor.getFilesWithin(Constants.PATH_DIRECTORY_WITH_IMAGES_TO_BE_BASED_ON)
+processImagePathes = directoryExtractor.getFilesWithin(Constants.PATH_DIRECTORY_WITH_IMAGES_TO_PROCESS)
+
+faceComparator = serviceFactory.getFaceComparator()
+
+
+for processImagePath in processImagePathes:
+    for baseImagePath in baseImagePathes:
+        if faceComparator.compareImages(baseImagePath, processImagePath):
+            print('OK', baseImagePath, processImagePath)
+        else:
+            print('NOK', baseImagePath, processImagePath)
+
+print(baseImagePathes, processImagePathes)
