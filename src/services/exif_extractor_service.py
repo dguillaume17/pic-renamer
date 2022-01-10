@@ -1,13 +1,18 @@
+import io
 from PIL import Image
 from PIL.ExifTags import TAGS
 
 class ExifExtractor:
-    def getCaptureDateTime(self, pathToMediaFile: str) -> str:
+    def getCaptureDateTime(self, pathToMediaFile: str) -> Image:
         print(f'getCaptureDateTime("{pathToMediaFile}"")')
         
         
         mediaFile = Image.open(pathToMediaFile)
-        mediaFile.rotate(180).save("test.jpg")
+        
+        b = io.BytesIO()
+        mediaFile.rotate(180).save(b, mediaFile.format)
+        b.seek(0)
+        #mediaFile.rotate(180)
         #mediaFile.save("test.jpg")
         exifData = mediaFile.getexif()
         
@@ -20,4 +25,4 @@ class ExifExtractor:
                 
             print(f'{tagName} : {tagValue}')
         
-        return 'test.jpg'
+        return b
