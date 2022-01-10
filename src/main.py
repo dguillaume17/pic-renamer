@@ -20,9 +20,9 @@ faceComparator = serviceFactory.getFaceComparator()
 
 for processImagePath in processImagePathes:
     for baseImagePath in baseImagePathes:
-        exifExtractor.getCaptureDateTime(processImagePath)
+        newPath = exifExtractor.getCaptureDateTime(processImagePath)
         
-        if faceComparator.compareImages(baseImagePath, processImagePath):
+        if faceComparator.compareImages(baseImagePath, newPath):
             print('OK', baseImagePath, processImagePath)
         else:
             print('NOK', baseImagePath, processImagePath)

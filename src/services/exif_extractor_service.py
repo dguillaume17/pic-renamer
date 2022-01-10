@@ -7,8 +7,8 @@ class ExifExtractor:
         
         
         mediaFile = Image.open(pathToMediaFile)
-        #mediaFile.rotate(180).save("test.jpg")
-        mediaFile.save("test.jpg")
+        mediaFile.rotate(180).save("test.jpg")
+        #mediaFile.save("test.jpg")
         exifData = mediaFile.getexif()
         
         for tagId in exifData:
@@ -20,4 +20,4 @@ class ExifExtractor:
                 
             print(f'{tagName} : {tagValue}')
         
-        return 'test'
+        return 'test.jpg'
